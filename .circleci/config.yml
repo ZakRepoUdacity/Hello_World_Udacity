@@ -35,5 +35,5 @@ workflows:
       - welcome/run
       - print_hello
           # requires: [welcome]
-      - print_world
+      - print_world:
           requires: [print_hello]
