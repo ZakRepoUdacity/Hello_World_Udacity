@@ -40,6 +40,7 @@ jobs:
     environment:
       CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
       pipeline_id: << pipeline.id >>
+      pipeline_number: << pipeline.number >>
 
       IMAGETAG: << pipeline.parameters.image-tag >>
     working_directory: << pipeline.parameters.workingdir >>
@@ -47,6 +48,7 @@ jobs:
       - checkout
       - run: echo "CIRCLE_COMPARE_URL is ${CIRCLE_COMPARE_URL}"
       - run: echo "pipeline.id is $pipeline_id"
+      - run: echo "pipeline Number is $pipeline_number"
 
       - run: echo "Image tag used was ${IMAGETAG}"
       - run: echo "$(pwd) == << pipeline.parameters.workingdir >>"
