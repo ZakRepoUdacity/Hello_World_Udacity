@@ -39,14 +39,14 @@ jobs:
       - image: alpine:latest
     environment:
       CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
-      pipeline.id: << pipeline.id >>
+      pipeline_id: << pipeline.id >>
 
       IMAGETAG: << pipeline.parameters.image-tag >>
     working_directory: << pipeline.parameters.workingdir >>
     steps:
       - checkout
       - run: echo "CIRCLE_COMPARE_URL is ${CIRCLE_COMPARE_URL}"
-      - run: echo "pipeline.id is ${pipeline.id}"
+      - run: echo "pipeline.id is ${pipeline_id}"
 
       - run: echo "Image tag used was ${IMAGETAG}"
       - run: echo "$(pwd) == << pipeline.parameters.workingdir >>"
