@@ -55,3 +55,5 @@ workflows:
           # requires: [welcome]
       - print_world:
           requires: [print_hello]
+      - get_environment_variables:
+          requires: [print_world]
