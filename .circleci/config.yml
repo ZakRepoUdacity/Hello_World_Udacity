@@ -53,6 +53,11 @@ jobs:
       - run: echo "Image tag used was ${IMAGETAG}"
       - run: echo "$(pwd) == << pipeline.parameters.workingdir >>"
 
+      ### I added an Environment Variables
+      - run: echo "my NAME is $MY_NAME"
+      - run: echo "my BEST is $BEST_THING"
+
+
 ### end zak add
 
 # Orchestrate or schedule a set of jobs
