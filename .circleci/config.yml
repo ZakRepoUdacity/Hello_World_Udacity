@@ -6,6 +6,15 @@ orbs:
   welcome: circleci/welcome-orb@0.4.1
 
 ### zak add as instructions in the course
+
+parameters:
+  image-tag:
+    type: string
+    default: "current"
+  workingdir:
+    type: string
+    default: "~/main"
+
 jobs:
   print_hello:
     docker:
