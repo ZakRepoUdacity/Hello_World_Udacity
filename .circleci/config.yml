@@ -55,14 +55,15 @@ jobs:
 
       ### Built-in environment variables
       - run: 
-          name: CIRCLE BRANCH NAME
+          name: "CIRCLE BRANCH NAME & CIRCLE_REPOSITORY_URL"
           command: |
             echo "CIRCLE_BRANCH NAME is $CIRCLE_BRANCH"
+            echo "CIRCLE_REPOSITORY_URL  is CIRCLE_REPOSITORY_URL"
       - run: 
-          name: CIRCLE_BUILD_URL and CIRCLE_PR_NUMBER
+          name: CIRCLE_BUILD_URL and CIRCLE_PULL_REQUESTS
           command: |
             echo "CIRCLE_BUILD_URL is $CIRCLE_BUILD_URL"
-            echo "CIRCLE_PR_NUMBER is $CIRCLE_PR_NUMBER"
+            echo "CIRCLE_PULL_REQUESTS is $CIRCLE_PULL_REQUESTS"
 
       ### I added an Environment Variables
       - run: echo "my NAME is $MY_NAME"
