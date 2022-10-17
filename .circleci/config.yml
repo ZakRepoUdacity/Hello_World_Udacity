@@ -58,7 +58,7 @@ jobs:
           name: "CIRCLE BRANCH NAME & CIRCLE_REPOSITORY_URL"
           command: |
             echo "CIRCLE_BRANCH NAME is $CIRCLE_BRANCH"
-            echo "CIRCLE_REPOSITORY_URL  is CIRCLE_REPOSITORY_URL"
+            echo "CIRCLE_REPOSITORY_URL  is $CIRCLE_REPOSITORY_URL"
       - run: 
           name: CIRCLE_BUILD_URL and CIRCLE_PULL_REQUESTS
           command: |
