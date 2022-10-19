@@ -1,0 +1,87 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+orbs:
+  # Declare a dependency on the welcome-orb
+  welcome: circleci/welcome-orb@0.4.1
+
+### zak add as instructions in the course
+
+parameters:
+  image-tag:
+    type: string
+    default: "current"
+  workingdir:
+    type: string
+    default: "~/main"
+
+jobs:
+  print_hello:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello-zak"
+  
+  print_world:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+          name: "Say Welcome"
+          command: "echo Welcome-zak"
+  
+  get_environment_variables:
+    docker:
+      - image: alpine:latest
+    environment:
+      CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>..<<pipeline.git.revision>>
+      pipeline_id: << pipeline.id >>
+      pipeline_number: << pipeline.number >>
+
+      IMAGETAG: << pipeline.parameters.image-tag >>
+    working_directory: << pipeline.parameters.workingdir >>
+    steps:
+      - checkout
+      - run: echo "CIRCLE_COMPARE_URL is ${CIRCLE_COMPARE_URL}"
+      - run: echo "pipeline.id is $pipeline_id"
+      - run: echo "pipeline Number is $pipeline_number"
+
+      - run: echo "Image tag used was ${IMAGETAG}"
+      - run: echo "$(pwd) == << pipeline.parameters.workingdir >>"
+
+      ### Built-in environment variables
+      - run: 
+          name: "CIRCLE BRANCH NAME & CIRCLE_REPOSITORY_URL"
+          command: |
+            echo "CIRCLE_BRANCH NAME is $CIRCLE_BRANCH"
+            echo "CIRCLE_REPOSITORY_URL  is $CIRCLE_REPOSITORY_URL"
+      - run: 
+          name: CIRCLE_BUILD_URL and CIRCLE_PULL_REQUESTS
+          command: |
+            echo "CIRCLE_BUILD_URL is $CIRCLE_BUILD_URL"
+            echo "CIRCLE_PULL_REQUESTS is $CIRCLE_PULL_REQUESTS"
+
+      ### I added an Environment Variables
+      - run: echo "my NAME is $MY_NAME"
+      - run: echo "my BEST is $BEST_THING"
+
+
+### end zak add
+
+# Orchestrate or schedule a set of jobs
+workflows:
+  # Name the workflow "welcome"
+  welcome-workflow-zak:
+    # Run the welcome/run job in its own container
+    jobs:
+      - welcome/run
+      - print_hello
+          # requires: [welcome]
+      - print_world:
+          requires: [print_hello]
+      - get_environment_variables:
+          requires: [print_world]
