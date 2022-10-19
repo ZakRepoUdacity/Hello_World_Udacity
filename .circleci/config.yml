@@ -24,7 +24,7 @@ jobs:
           command: |
             echo "text to output here" > output.txt
       - persist_to_workspace:
-          root: .     # relative path to our working directory
+          root: /tmp/workspace     # relative path to our working directory
           paths:      # file globs which will be persisted to the workspace
            - rand_*
 
@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: . # relative path to our working directory
+          at: /tmp/workspace # relative path to our working directory
       - run:
           name: "print_output_file"
           command: |
