@@ -32,7 +32,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - print_pipeline_id
+      - print_pipeline_id:
+          WFID: "$CIRCLE_BRANCH"
 
 workflows:
   welcome-workflow-zak:
