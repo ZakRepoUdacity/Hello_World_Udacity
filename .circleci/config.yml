@@ -15,14 +15,14 @@ commands:
       - run: echo CIRCLE_REPOSITORY_URL is << parameters.CCI_REPO_URL >>
 
 jobs:
-  print_env_var_consol_using_command:
+  print_env_var_consol_using_commands:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: print_pipeline_id
+      - print_pipeline_id
 
 workflows:
   welcome-workflow-zak:
     jobs:
-      - print_env_var_consol_using_command
+      - print_env_var_consol_using_commands
