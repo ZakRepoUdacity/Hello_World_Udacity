@@ -39,7 +39,7 @@ jobs:
     steps:
       - checkout
       - print_pipeline_id
-          # WFID: "$CIRCLE_BRANCH" ### If we need to change value
+          # WFID: "$CIRCLE_BRANCH" ### If we need to overwrite value
 
 workflows:
   welcome-workflow-zak:
