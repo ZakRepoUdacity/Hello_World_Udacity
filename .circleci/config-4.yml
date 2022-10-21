@@ -1,0 +1,47 @@
+version: 2.1
+
+commands:
+  print_pipeline_id:
+    description: "Copy CIRCLE_WORKFLOW_ID and CIRCLE_REPOSITORY_URL to the console"
+    parameters:
+      WFID:
+        type: string
+        default: $CIRCLE_WORKFLOW_ID
+      CCIREPOURL:
+        type: string
+        default: $CIRCLE_REPOSITORY_URL
+    steps:
+      - checkout
+      - run: echo CIRCLE_WORKFLOW_ID is << parameters.WFID >>
+      - run: echo CIRCLE_REPOSITORY_URL is << parameters.CCIREPOURL >>
+
+### OR
+# commands:
+#   print_pipeline_id:
+#     description: "Copy CIRCLE_WORKFLOW_ID and CIRCLE_REPOSITORY_URL to the console"
+#     parameters:
+#       WFID:
+#         type: string
+#         default: $CIRCLE_WORKFLOW_ID
+#     steps:
+#       - run: echo CIRCLE_WORKFLOW_ID is << parameters.WFID >>
+
+###OR 
+# commands:
+#   print_pipeline_id:
+#     steps:
+#       - run: echo ${CIRCLE_WORKFLOW_ID}
+
+jobs:
+  print_env_var_consol_using_commands:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - print_pipeline_id
+          # WFID: "$CIRCLE_BRANCH" ### If we need to overwrite value
+
+workflows:
+  welcome-workflow-zak:
+    jobs:
+      - print_env_var_consol_using_commands
